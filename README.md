@@ -108,5 +108,5 @@ The frontend consumes the backend exclusively through REST APIs and does not con
 ## License
 
 This project is intended for academic and educational use.
-```
+
 
