@@ -52,7 +52,7 @@ The backend is built using **Django and Django REST Framework**
 
 ### Backend Structure (Simplified)
 
-```
+
 
 backend/
 ├── root/        # Global Django configuration
