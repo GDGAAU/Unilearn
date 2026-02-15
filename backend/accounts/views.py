@@ -4,6 +4,8 @@ from rest_framework import status
 from .serializers import RegisterSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 
 from .serializers import RegisterSerializer
@@ -57,13 +59,14 @@ def login(request):
 #@desc Get current user profile
 #@access Private
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def me(request):
-    return Response(
-        {
-            "message": "Current user profile retrieved successfully",
-            "id": "uuid",
-            "full_name": "dagm yibabe",
-            "email": "dagm@example.com",
-            "role": "student",
-        }
-    )
+    user = request.user
+    profile = getattr(user, "profile", None)  
+
+    return Response({
+        "id": user.id,
+        "email": user.username,
+        "full_name": profile.full_name if profile else "",
+        "role": profile.role if profile else "",
+    })
