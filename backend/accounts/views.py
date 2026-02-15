@@ -52,17 +52,6 @@ def login(request):
         "refresh": str(refresh)
     })
 
-#@route api/auth/refresh
-#@desc Refresh access token using refresh token
-#@access Public
-@api_view(["POST"])
-def refresh_token(request):
-    return Response(
-        {
-            "message": "Access token refreshed successfully",
-            "access": "new-access-token",
-        }
-    )
 
 #@route api/auth/me
 #@desc Get current user profile
