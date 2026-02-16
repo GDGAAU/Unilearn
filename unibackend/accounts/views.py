@@ -1,9 +1,10 @@
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
-from .serializers import LoginSerializer, RegisterSerializer
+from .serializers import LoginSerializer, RefreshSerializer, RegisterSerializer, UserSerializer
 
 
 class RegisterView(APIView):
@@ -75,11 +76,47 @@ class MeView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        return Response({"success": True, "message": "me endpoint ready"})
+        user_data = UserSerializer(request.user).data
+        return Response(
+            {
+                "success": True,
+                "message": "User profile fetched successfully",
+                "data": user_data,
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
 class RefreshTokenView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        return Response({"success": True, "message": "refresh endpoint ready"})
+        serializer = RefreshSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                {
+                    "success": False,
+                    "message": "Refresh failed",
+                    "errors": serializer.errors,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        refresh_value = serializer.validated_data["refresh"]
+        try:
+            refresh = RefreshToken(refresh_value)
+            access = str(refresh.access_token)
+        except TokenError:
+            return Response(
+                {"success": False, "message": "Invalid or expired refresh token"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        return Response(
+            {
+                "success": True,
+                "message": "Token refreshed successfully",
+                "access": access,
+            },
+            status=status.HTTP_200_OK,
+        )
