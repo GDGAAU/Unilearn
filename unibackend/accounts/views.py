@@ -1,13 +1,31 @@
-from rest_framework import generics
-from .models import User
-from .serializers import UserSerializer, RegisterSerializer
+from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
+class RegisterView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        return Response({"success": True, "message": "register endpoint ready"})
 
 
-class UserListView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class LoginView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        return Response({"success": True, "message": "login endpoint ready"})
+
+
+class MeView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        return Response({"success": True, "message": "me endpoint ready"})
+
+
+class RefreshTokenView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        return Response({"success": True, "message": "refresh endpoint ready"})

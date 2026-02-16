@@ -10,7 +10,21 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.getenv("SECRET_KEY","unilearn-secret-key")
 DEBUG = os.getenv("DEBUG", "False") == "True"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
+
+
+def _parse_allowed_hosts(raw_hosts: str):
+    cleaned = raw_hosts.strip().strip("[]")
+    hosts = []
+    for host in cleaned.split(","):
+        host = host.strip().strip("'\"")
+        if host:
+            hosts.append(host)
+    return hosts
+
+
+ALLOWED_HOSTS = _parse_allowed_hosts(
+    os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,::1")
+)
 
 
 # Application definition
