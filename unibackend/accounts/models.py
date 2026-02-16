@@ -25,3 +25,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+from django.conf import settings
+
+class StudentProfile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
+    department = models.CharField(max_length=100)
+    year = models.IntegerField()
+    bio = models.TextField(blank=True)
+    external_links = models.JSONField(default=dict, blank=True)
+
+    def __str__(self):
+        return f"{self.user.full_name} Profile"
