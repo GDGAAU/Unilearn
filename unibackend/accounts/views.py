@@ -1,7 +1,9 @@
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import RegisterSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from .models import User
+from .serializers import LoginSerializer, RegisterSerializer
 
 
 class RegisterView(APIView):
@@ -29,7 +31,44 @@ class LoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        return Response({"success": True, "message": "login endpoint ready"})
+        serializer = LoginSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                {
+                    "success": False,
+                    "message": "Login failed",
+                    "errors": serializer.errors,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        email = serializer.validated_data["email"]
+        password = serializer.validated_data["password"]
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response(
+                {"success": False, "message": "Invalid credentials"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        if not user.check_password(password):
+            return Response(
+                {"success": False, "message": "Invalid credentials"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        refresh = RefreshToken.for_user(user)
+        return Response(
+            {
+                "success": True,
+                "message": "Login successful",
+                "access": str(refresh.access_token),
+                "refresh": str(refresh),
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
 class MeView(APIView):
