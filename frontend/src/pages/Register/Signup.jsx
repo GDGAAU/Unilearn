@@ -2,6 +2,46 @@ import { useState } from "react";
 import styles from "./Signup.module.css";
 import signupImg from '../../assets/signup-image.png';
 
+
+
+
+
+
+function validate(values) {
+  const errors = {};
+
+  if (!values.email.trim()) {
+    errors.email = "Email is required.";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+    errors.email = "Please enter a valid email address.";
+  }
+
+  if (!values.name.trim()) {
+    errors.name = "Name is required.";
+  } else if (values.name.trim().length < 2) {
+    errors.name = "Name must be at least 2 characters.";
+  }
+
+  if (!values.password) {
+    errors.password = "Password is required.";
+  } else if (values.password.length < 8) {
+    errors.password = "Password must be at least 8 characters.";
+  }
+
+  if (!values.confirmPassword) {
+    errors.confirmPassword = "Please confirm your password.";
+  } else if (values.password !== values.confirmPassword) {
+    errors.confirmPassword = "Passwords do not match.";
+  }
+
+  return errors;
+}
+
+
+
+
+
+
 export default function Signup() {
   const [values, setValues] = useState({
     email: "",
@@ -10,15 +50,38 @@ export default function Signup() {
     confirmPassword: "",
   });
 
+
+
+  const [errors, setErrors] = useState({});
+
   function handleChange(e) {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
+
+    if (errors[name]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
+      });
+    }
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(values);
-  }
+
+function handleSubmit(e) {
+  e.preventDefault();
+  console.log("Form data:", values);
+
+  const validationErrors = validate(values);
+  setErrors(validationErrors);
+
+
+  if (Object.keys(validationErrors).length > 0) return;
+
+
+  console.log("Form submitted successfully!");
+}
+
 
   return (
     <div className={styles.page}>
@@ -42,7 +105,7 @@ export default function Signup() {
 
             <h2 className={styles.heading}>Sign Up to your account</h2>
 
-            <form onSubmit={handleSubmit} className={styles.form}>
+            <form onSubmit={handleSubmit} className={styles.form} noValidate>
               <div className={styles.fieldGroup}>
                 <label className={styles.label}>E-mail</label>
                 <input
@@ -53,6 +116,12 @@ export default function Signup() {
                   onChange={handleChange}
                   className={styles.input}
                 />
+
+                {errors.email && (
+                  <span className={styles.errorText}>
+                    {errors.email}
+                  </span>
+                )}
               </div>
 
               <div className={styles.fieldGroup}>
@@ -65,6 +134,12 @@ export default function Signup() {
                   onChange={handleChange}
                   className={styles.input}
                 />
+
+                {errors.name && (
+                  <span className={styles.errorText}>
+                    {errors.name}
+                  </span>
+                )}
               </div>
 
               <div className={styles.fieldGroup}>
@@ -77,6 +152,12 @@ export default function Signup() {
                   onChange={handleChange}
                   className={styles.input}
                 />
+
+                {errors.password && (
+                  <span className={styles.errorText}>
+                    {errors.password}
+                  </span>
+                )}
               </div>
 
               <div className={styles.fieldGroup}>
@@ -89,6 +170,12 @@ export default function Signup() {
                   onChange={handleChange}
                   className={styles.input}
                 />
+
+                {errors.confirmPassword && (
+                  <span className={styles.errorText}>
+                    {errors.confirmPassword}
+                  </span>
+                )}
               </div>
 
               <div className={styles.buttonWrapper}>
