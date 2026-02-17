@@ -26,7 +26,7 @@ const Home = () => {
         <div className={styles.buttonGroup}>
           <button
             className={styles.primaryBtn}
-            onClick={() => navigate("/get-started")}
+            onClick={() => navigate("/Signup")}
           >
             Get Started
           </button>
