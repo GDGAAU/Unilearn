@@ -1,0 +1,15 @@
+.card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+}
