@@ -1,0 +1,96 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff9f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding: 40px 20px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.searchSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+h2.deptTitle {
+  color: #E67E22; 
+  font-size: 48px;
+  font-weight: 400;
+  font-family: 'McLaren', sans-serif; 
+  text-align: center; 
+  margin: 20px 0 40px 0;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+}
+
+.inputWrapper input {
+  width: 100%;
+  padding: 10px 50px 10px 25px; 
+  border-radius: 50px;
+  border: 1px solid #999;
+  font-size: 18px;
+  font-style: italic;
+  color: #E67E22;
+  outline: none;
+  background: white;
+}
+
+.inputWrapper input:focus {
+  border-color: #ff8c00;
+  box-shadow: 0 4px 12px rgba(255, 140, 0, 0.15);
+}
+
+.iconButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #E67E22 !important; 
+  width: 31px !important;
+  height: 31px !important;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: none; 
+}
+
+.iconButton svg {
+  color: white !important;
+  stroke: white !important;
+  width: 18px;
+  height: 18px;
+}
+
+.listContainer {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.noResults {
+  margin-top: 50px;
+  font-style: italic;
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  h2.deptTitle {
+    font-size: 32px;
+  }
+}

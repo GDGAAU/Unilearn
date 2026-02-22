@@ -1,0 +1,88 @@
+.card {
+  background: white;
+  border-radius: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.content {
+  padding: 20px;
+  text-align: left;
+}
+
+.author {
+  color: #E67E22;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.description strong {
+  font-weight: 600;
+}
+
+.languages, .stars {
+  font-size: 22px;
+  margin: 5px 0;
+  color: #333;
+}
+
+.label {
+  color: #E67E22;
+  font-weight: 500;
+}
+
+.footer {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.starOutline {
+  font-size: 40px;
+  color: #ccc; 
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.1s ease;
+}
+
+.starFilled {
+  font-size: 40px;
+  color: #E67E22; 
+  cursor: pointer;
+  line-height: 1;
+  transform: scale(1.1);
+  transition: transform 0.1s ease;
+}
+
+.starOutline:hover, .starFilled:hover {
+  transform: scale(1.2);
+}
+
+.downloadLink {
+  color: #E67E22;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.downloadLink:hover {
+  text-decoration: underline;
+}
