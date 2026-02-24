@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'instructors',
     'projects',
     'resources',
-    'rest_framework',
     'drf_yasg',
 
 ]
@@ -118,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = '/api-auth/login/'
 
 # Internationalization
 
@@ -133,7 +133,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+# Static files
+
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static", 
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 AUTH_USER_MODEL = "accounts.User"
 
 # rest framework and JWT settings

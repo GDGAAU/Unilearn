@@ -1,31 +1,26 @@
 from django.contrib import admin
-from django.urls import path, include
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
+from django.urls import path, include, re_path
+from django.http import HttpResponse
+from django.conf import settings
+from django.conf.urls.static import static
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="UniLearn API",
-        default_version='v1',
-        description="UniLearn API Documentation",
-        contact=openapi.Contact(email="contact@unilearn.local"),
-        license=openapi.License(name="MIT License"),
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
+# Home
+def home(request):
+    return HttpResponse("Welcome to UniLearn API")
 
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
-    path('api/', include('accounts.urls')),  # your accounts module
-    path('api/', include('courses.urls')),   # courses
-    path('api/', include('instructors.urls')),  # instructors
-    path('api/', include('projects.urls')),     # projects
-    path('api/', include('resources.urls')),    # resources
 
-    # Swagger
-    path('swagger(<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # API modules
+    path('api/accounts/', include('accounts.urls')),
+    path('api/courses/', include('courses.urls')),
+    path('api/instructors/', include('instructors.urls')),
+    path('api/projects/', include('projects.urls')),
+    path('api/resources/', include('resources.urls')),
+
 ]
+
+# Serve static files in dev
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
