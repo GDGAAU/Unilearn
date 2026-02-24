@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'courses',
     'instructors',
     'projects',
+    'resources',
+    'rest_framework',
+    'drf_yasg',
 
 ]
 
@@ -91,6 +94,9 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_PASSWORD", "root"),
         "HOST": os.getenv("DB_HOST", "localhost"),
         "PORT": os.getenv("DB_PORT", "5432"),
+        "OPTIONS": {
+            'sslmode': 'require',
+        },
     }
 }
 
