@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Signup.module.css";
 import signupImg from '../../assets/signup-image.png';
-import { register } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 
 
@@ -100,7 +99,7 @@ export default function Signup() {
       // confirmPassword is frontend-only
       const { confirmPassword, ...payload } = values;
 
-      const data = await register(payload);
+      const data = await authService.register(payload);
 
       // update AuthContext
       loginUser(data);
