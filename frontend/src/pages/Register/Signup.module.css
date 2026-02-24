@@ -1,41 +1,34 @@
-
-
-/* ===== Page layout ===== */
 .page {
   display: flex;
   min-height: 100vh;
-  background-color: #faf7f2;
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  
+  font-family: 'Inter', sans-serif;
+  background-color: #f5f5f5;
 }
 
 .main {
   display: flex;
   flex: 1;
+  width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 40px 48px;
-  
+  padding: 0;
 }
 
 .container {
   display: flex;
   width: 100%;
   max-width: 1200px;
-  gap: 0;
-  align-items: stretch;
-  background-color:hsl(30, 100%, 98%);
+  background-color: #fff2e3;
   border-radius: 20px;
-  box-shadow:
-    0 4px 24px rgba(180, 140, 80, 0.08),
-    0 1px 4px rgba(0, 0, 0, 0.04);
   overflow: hidden;
+  box-shadow: 0 4px 24px rgba(180, 140, 80, 0.08),
+              0 1px 4px rgba(0, 0, 0, 0.04);
+  height: 90vh; /* fits viewport */
 }
 
-/* ===== Left image panel ===== */
+/* Left Image Panel */
 .imageWrapper {
-  flex-shrink: 0;
-  width: 46%;
+  flex: 1;
   position: relative;
   overflow: hidden;
 }
@@ -47,7 +40,7 @@
   display: block;
 }
 
-/* Subtle warm overlay on the image */
+/* Subtle overlay */
 .imageWrapper::after {
   content: "";
   position: absolute;
@@ -60,454 +53,141 @@
   pointer-events: none;
 }
 
-/* ===== Right form panel ===== */
+/* Right Form Panel */
 .formPanel {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
-  width: 54%;
-  padding: 48px 56px;
+  align-items: center;
+  padding: 24px 32px;
+  box-sizing: border-box;
+  height: 100%;
 }
 
-/* ===== Brand header ===== */
+/* Brand Header */
 .brandHeader {
-  display: flex;
-  flex-direction: column;
-  /* gap: 6px;
-  margin-bottom: 4px; */
-  
+  text-align: center;
 }
 
 .brandName {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 800;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   color: hsl(31, 79%, 48%);
-  margin: 0;
   font-family: "McLaren", sans-serif;
-  margin:0 auto;
+  margin-bottom: 4px;
 }
 
 .tagline {
-  font-size: 18px;
+  font-size: 14px;
   font-style: italic;
   color: hsl(31, 79%, 48%);
-  margin: 0;
-  /* letter-spacing: 0.3px; */
+  margin: 0 auto 12px auto;
   font-family: "Poppins", sans-serif;
-
 }
 
+/* Heading */
 .heading {
-  font-size: 27px;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 700;
   color: hsl(30, 8%, 20%);
-  margin: 0;
-  margin-top: -10px;
-  font-family: "Poppins", sans-serif;
+  margin-bottom: 14px;
+  text-align: center;
 }
 
-/* ===== Form ===== */
+/* Form */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-}
-
-.serverError {
-  background-color: #fef2f2;
-  color: #b91c1c;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 13px;
-  border: 1px solid #fecaca;
-  width: 80%;
+  gap: 12px;
+  width: 100%;
+  max-width: 380px;
 }
 
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .label {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   color: hsl(30, 8%, 20%);
-  letter-spacing: 0.2px;
-  font-family: "Poppins", sans-serif;
 }
 
 .input {
-  padding: 13px 16px;
-  font-size: 18px;
+  padding: 10px 14px;
+  font-size: 15px;
   border: 1px solid hsl(31, 79%, 48%);
-  border-radius: 5px;
-  background-color: hsl(32, 100%, 95%);
-  color: #1a1a1a;
+  border-radius: 6px;
+  background-color: #fff2e3;
   outline: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
-  font-family: inherit;
-  width: 80%;
 }
 
 .input::placeholder {
+  font-size: 13px;
   color: hsl(31, 79%, 48%);
-  font-weight: 400;
-  font-size: 15px;
-  font-family: "Manrope", sans-serif;
-}
-
-.input:focus {
-  border-color: #d4851c;
-  box-shadow: 0 0 0 3px rgba(212, 133, 28, 0.15);
-  background-color: #fffdf9;
 }
 
 .inputError {
   border-color: #f87171;
   background-color: #fff5f5;
-  
-}
-
-.inputError:focus {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
 .errorText {
   font-size: 12px;
   color: #dc2626;
-  font-weight: 500;
-  
 }
 
+/* Submit Button */
 .buttonWrapper {
   display: flex;
   justify-content: center;
-  padding-top: 6px;
+  margin-top: 6px;
 }
 
 .submitButton {
-  padding: 23px 64px;
-  font-size: 18px;
-  font-weight: 500;
-  color: #ffffff;
+  width: 100%;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 600;
   background-color: hsl(31, 79%, 48%);
+  color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 0.3px;
-  box-shadow: 0 2px 12px rgba(212, 133, 28, 0.3);
+  transition: 0.2s ease;
 }
 
 .submitButton:hover {
   background-color: #c07818;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 18px rgba(212, 133, 28, 0.35);
 }
 
-.submitButton:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(212, 133, 28, 0.25);
-}
-
-.submitButton:focus-visible {
-  outline: 2px solid #d4851c;
-  outline-offset: 3px;
-}
-
-.submitButton:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-/* ===== Divider ===== */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.dividerLine {
-  flex: 1;
-  height: 1px;
-  background-color: #e5ddd4;
-}
-
-.dividerText {
-  font-size: 13px;
-  font-weight: 500;
-  color: #a09080;
-  text-transform: lowercase;
-}
-
-/* ===== Google button ===== */
-.googleButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 14px 20px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #1a1a1a;
-  background-color: #ffffff;
-  border: 1.5px solid #e5ddd4;
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.googleButton:hover {
-  background-color: #faf7f2;
-  border-color: #d4851c;
-  box-shadow: 0 2px 8px rgba(212, 133, 28, 0.1);
-}
-
-.googleButton:focus-visible {
-  outline: 2px solid #d4851c;
-  outline-offset: 2px;
-}
-
-.googleIcon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-/* ===== Login link ===== */
-.loginLink {
-  text-align: center;
-  font-size: 15px;
-  color: #737373;
-  margin: 0;
-}
-
-.loginLink a {
-  color: #d4851c;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.loginLink a:hover {
-  color: #b06d10;
-  text-decoration: underline;
-}
-
-/* ===== Success state ===== */
-.successContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 48px 0;
-}
-
-.successIcon {
-  width: 56px;
-  height: 56px;
-  background-color: #d4851c;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(212, 133, 28, 0.3);
-}
-
-.successIcon svg {
-  width: 30px;
-  height: 30px;
-  color: #ffffff;
-}
-
-.successTitle {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0;
-}
-
-.successText {
-  font-size: 15px;
-  color: #737373;
-  margin: 0;
-}
-
-/* ===== Extra-large screens (1440px+) ===== */
-@media (min-width: 1440px) {
-  .container {
-    max-width: 1320px;
-  }
-
-  .brandName {
-    font-size: 42px;
-  }
-
-  .tagline {
-    font-size: 17px;
-  }
-
-  .heading {
-    font-size: 26px;
-  }
-
-  .formPanel {
-    padding: 56px 72px;
-    gap: 22px;
-  }
-
-  .input {
-    padding: 15px 18px;
-    font-size: 15px;
-  }
-
-  .submitButton {
-    padding: 16px 72px;
-    font-size: 17px;
-  }
-
-  .googleButton {
-    padding: 15px 16px;
-    font-size: 16px;
-  }
-
-  .label {
-    font-size: 14px;
-  }
-}
-
-/* ===== Large screens (1024px - 1439px) ===== */
-/* @media (min-width: 1024px) and (max-width: 1439px) {
-  .container {
-    max-width: 1100px;
-  }
-
-  .formPanel {
-    padding: 48px 56px;
-  }
-} */
-
-/* ===== Tablets (769px - 1023px) ===== */
-@media (min-width: 769px) and (max-width: 1023px) {
-
-  .brandName {
-    font-size: 38px;
-  }
-
-  .heading {
-    font-size: 23px;
-  }
-
-  .input {
-    padding: 11px 14px;
-    font-size: 13px;
-  }
-
-  .submitButton {
-    padding: 14px 50px;
-    font-size: 16px;
-  }
-
-  
-
-}
-
-/* ===== Mobile (max 768px) ===== */
-@media (max-width: 768px) {
-  .main {
-    flex-direction: column;
-    padding: 24px 16px;
-    align-items: center;
-    justify-content: center;
-    
-  }
-
-  .container {
-    flex-direction: column;
-    width: 100%;
-    border-radius: 16px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .imageWrapper {
-    width: 100%;
-    max-height: 240px;
-  }
-
-  .image {
-    height: 240px;
-  }
-
-  .formPanel {
-    width: 90%;
-    padding: 32px 28px;
-    
-  }
-
-  
-
-  .brandName {
-    font-size: 38px;
-    text-align: center;
-  }
-
-  .tagline {
-    text-align: center;
-    font-size: 18px;
-  }
-
-  .heading {
-    align-self: flex-start;
-    font-size: 20px;
-  }
-
-   .label {
-    font-size: 15px;
-  }
-
-    .input::placeholder {
+/* Signup link */
+.signupText {
+  margin-top: 10px;
   font-size: 14px;
+  color: #000;
+  text-align: center;
 }
 
-
-
-  .submitButton {
-    width: 45%;
-    padding: 14px 24px;
- 
-  }
-
-  .googleButton {
-    font-size: 15px;
-    margin: 0 auto;
-    width: 75%;
-    padding: 13px 16px;
-  }
-
-
+.signupText a {
+  color: hsl(31, 79%, 48%);
+  font-weight: 600;
 }
 
-/* ===== Small mobile (max 480px) ===== */
-@media (max-width: 480px) {
-  .main {
-    padding: 12px 10px;
-  }
-
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
   .container {
-    border-radius: 12px;
+    flex-direction: column;
+    height: auto; /* allow natural height */
+    border-radius: 16px;
   }
 
   .imageWrapper {
+    width: 100%;
     max-height: 180px;
   }
 
@@ -516,57 +196,28 @@
   }
 
   .formPanel {
-    padding: 24px 20px;
-    gap: 14px;
+    width: 100%;
+    padding: 20px 16px;
   }
 
   .brandName {
-    font-size: 36px;
-    letter-spacing: 2px;
+    font-size: 26px;
   }
 
   .tagline {
-    font-size: 15px;
-    align-self: flex-start;
+    font-size: 13px;
   }
 
   .heading {
     font-size: 18px;
-    align-self: flex-start;
-  }
-
-  .input {
-    padding: 11px 14px;
-    font-size: 13px;
-    border-radius: 8px;
-  }
-
-  .label {
-    font-size: 12px;
   }
 
   .submitButton {
-    padding: 15px 26px;
-    font-size: 14px;
+    font-size: 15px;
+    padding: 12px 0;
   }
 
-  .googleButton {
-    padding: 12px 15px;
-    font-size: 14px;
+  .form {
+    max-width: 100%;
   }
-
-  .dividerText {
-    font-size: 12px;
-  }
-
-
-  .input::placeholder {
-  font-size: 13px;
-}
-
-.loginLink {
-  font-size: 13px;
-}
-
-
 }

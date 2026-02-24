@@ -1,15 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./Signup.module.css";
-import signupImg from '../../assets/signup-image.png';
-import { register } from "../../services/authService";
-import  useAuth  from "../../hooks/useAuth";
-
-
-
-
-
-
+import signupImg from "../../assets/signup-image.png";
+import { useAuth } from "../../context/AuthContext";
+import { authService } from "../../services/authService";
 
 /* ── Validation ── */
 function validate(values) {
@@ -42,13 +36,6 @@ function validate(values) {
   return errors;
 }
 
-
-
-
-
-
-
-
 export default function Signup() {
   const [values, setValues] = useState({
     email: "",
@@ -61,11 +48,8 @@ export default function Signup() {
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  const { loginUser } = useAuth();
   const navigate = useNavigate();
-
-
-
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -80,9 +64,6 @@ export default function Signup() {
     }
   }
 
-
-
-
   async function handleSubmit(e) {
     e.preventDefault();
     setServerError("");
@@ -95,32 +76,25 @@ export default function Signup() {
     try {
       setLoading(true);
 
-      // confirmPassword is frontend-only
       const { confirmPassword, ...payload } = values;
+      const data = await authService.register(payload);
 
-      const data = await register(payload);
+      // loginUser expects { user, token } from your context
+      loginUser(data);
 
-      // update AuthContext
-      login(data);
-
-      // redirect after successful signup
-      navigate("/");
+      // Redirect to projects (or home)
+      navigate("/projects");
     } catch (err) {
-  const message = err.response?.data?.message || "Registration failed";
-  setServerError(message);
+      const message = err.message || "Registration failed";
+      setServerError(message);
 
-  // auto-clear after 5 seconds
-  setTimeout(() => {
-    setServerError("");
-  }, 5000);
-
+      setTimeout(() => {
+        setServerError("");
+      }, 5000);
     } finally {
       setLoading(false);
     }
   }
-
-
-
 
   return (
     <div className={styles.page}>
@@ -135,7 +109,7 @@ export default function Signup() {
             />
           </div>
 
-          {/* Right Panel */}
+          {/* Right Form Panel */}
           <div className={styles.formPanel}>
             <div className={styles.brandHeader}>
               <h1 className={styles.brandName}>UNILEARN</h1>
@@ -148,34 +122,8 @@ export default function Signup() {
 
             <form onSubmit={handleSubmit} className={styles.form} noValidate>
               {serverError && (
-                <div className={styles.serverError}>{serverError}</div>
+                <p className={styles.serverError}>{serverError}</p>
               )}
-
-
-
-              {/* Email */}
-              <div className={styles.fieldGroup}>
-                <label className={styles.label}>E-mail</label>
-                <input
-                  name="email"
-                  type="email"
-                  value={values.email}
-                  placeholder="john@mail.com"
-                  onChange={handleChange}
-                  className={`${styles.input} ${
-                    errors.email ? styles.inputError : ""
-                  }`}
-                />
-                {errors.email && (
-                  <span className={styles.errorText}>
-                    {errors.email}
-                  </span>
-                )}
-              </div>
-
-
-
-
 
               {/* Name */}
               <div className={styles.fieldGroup}>
@@ -183,23 +131,37 @@ export default function Signup() {
                 <input
                   name="name"
                   type="text"
-                  value={values.name}
                   placeholder="John Doe"
+                  value={values.name}
                   onChange={handleChange}
                   className={`${styles.input} ${
                     errors.name ? styles.inputError : ""
                   }`}
+                  required
                 />
                 {errors.name && (
-                  <span className={styles.errorText}>
-                    {errors.name}
-                  </span>
+                  <span className={styles.errorText}>{errors.name}</span>
                 )}
               </div>
 
-
-
-
+              {/* Email */}
+              <div className={styles.fieldGroup}>
+                <label className={styles.label}>E-mail</label>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="john@mail.com"
+                  value={values.email}
+                  onChange={handleChange}
+                  className={`${styles.input} ${
+                    errors.email ? styles.inputError : ""
+                  }`}
+                  required
+                />
+                {errors.email && (
+                  <span className={styles.errorText}>{errors.email}</span>
+                )}
+              </div>
 
               {/* Password */}
               <div className={styles.fieldGroup}>
@@ -207,23 +169,18 @@ export default function Signup() {
                 <input
                   name="password"
                   type="password"
-                  value={values.password}
                   placeholder="At least 8 characters"
+                  value={values.password}
                   onChange={handleChange}
                   className={`${styles.input} ${
                     errors.password ? styles.inputError : ""
                   }`}
+                  required
                 />
                 {errors.password && (
-                  <span className={styles.errorText}>
-                    {errors.password}
-                  </span>
+                  <span className={styles.errorText}>{errors.password}</span>
                 )}
               </div>
-
-
-
-
 
               {/* Confirm Password */}
               <div className={styles.fieldGroup}>
@@ -231,12 +188,13 @@ export default function Signup() {
                 <input
                   name="confirmPassword"
                   type="password"
-                  value={values.confirmPassword}
                   placeholder="Re-enter your password"
+                  value={values.confirmPassword}
                   onChange={handleChange}
                   className={`${styles.input} ${
                     errors.confirmPassword ? styles.inputError : ""
                   }`}
+                  required
                 />
                 {errors.confirmPassword && (
                   <span className={styles.errorText}>
@@ -244,11 +202,6 @@ export default function Signup() {
                   </span>
                 )}
               </div>
-
-
-
-
-
 
               {/* Submit */}
               <div className={styles.buttonWrapper}>
@@ -261,35 +214,10 @@ export default function Signup() {
                 </button>
               </div>
 
-              {/* Divider */}
-              <div className={styles.divider}>
-                <span className={styles.dividerLine} />
-                <span className={styles.dividerText}>or</span>
-                <span className={styles.dividerLine} />
-              </div>
-
-              {/* Google Button (placeholder) */}
-              <button
-                type="button"
-                className={styles.googleButton}
-                onClick={() =>
-                  alert("Google Sign-In not implemented yet")
-                }
-              >
-
-              <svg className={styles.googleIcon} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
-          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
-          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-        </svg>
-                Continue with Google
-              </button>
+              <p className={styles.signupText}>
+                Already have an account? <Link to="/Login">Log in</Link>
+              </p>
             </form>
-
-            <p className={styles.loginLink}>
-              Already have an account? <a href="#">Log in</a>
-            </p>
           </div>
         </div>
       </main>
