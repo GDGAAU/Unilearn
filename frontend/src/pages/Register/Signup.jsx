@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Signup.module.css";
 import signupImg from '../../assets/signup-image.png';
-import { register } from "../../services/authService";
-import  useAuth  from "../../hooks/useAuth";
+import { useAuth } from "../../context/AuthContext";
 
 
 
@@ -59,9 +58,11 @@ export default function Signup() {
 
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
 
-  const { login } = useAuth();
+  const { loginUser, loading: contextLoading } = useAuth();
+
+  if (contextLoading) return <div>Loading...</div>;
   const navigate = useNavigate();
 
 
@@ -93,15 +94,15 @@ export default function Signup() {
     if (Object.keys(validationErrors).length > 0) return;
 
     try {
-      setLoading(true);
+      setFormLoading(true);
 
       // confirmPassword is frontend-only
       const { confirmPassword, ...payload } = values;
 
-      const data = await register(payload);
+      const data = await authService.register(payload);
 
       // update AuthContext
-      login(data);
+      loginUser(data);
 
       // redirect after successful signup
       navigate("/");
@@ -115,7 +116,7 @@ export default function Signup() {
   }, 5000);
 
     } finally {
-      setLoading(false);
+      setFormLoading(false);
     }
   }
 
@@ -252,13 +253,12 @@ export default function Signup() {
 
               {/* Submit */}
               <div className={styles.buttonWrapper}>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={styles.submitButton}
-                >
-                  {loading ? "Creating Account..." : "Get Started"}
-                </button>
+
+<button type="submit" disabled={formLoading}  className={styles.submitButton}>
+  {formLoading ? "Creating Account..." : "Get Started"}
+</button>
+
+
               </div>
 
               {/* Divider */}
@@ -287,9 +287,18 @@ export default function Signup() {
               </button>
             </form>
 
-            <p className={styles.loginLink}>
-              Already have an account? <a href="#">Log in</a>
-            </p>
+                  <p className={styles.loginLink}>
+                      Already have an account?{" "}
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault(); // prevent default anchor jump
+                          navigate("/login");
+                        }}
+                      >
+                        Log in
+                      </a>
+      </p>
           </div>
         </div>
       </main>
