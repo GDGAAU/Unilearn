@@ -1,11 +1,27 @@
-import api from "./api";
+import axios from "axios";
 
-export async function register({ email, name, password }) {
-  const res = await api.post("/auth/register/", {
-    email,
-    name,
-    password,
-  });
-  return res.data;
-}
+const API_BASE_URL = "http://localhost:5000/api/auth"; // Replace with your real backend URL
 
+export const authService = {
+ 
+  login: async (email, password) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/login`, { email, password });
+      return response.data; // returns user object or token
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Invalid credentials");
+    }
+  },
+
+  register: async ({ name, email, password }) => {
+    if (!name || !email || !password) {
+      throw new Error("Name, email, and password are required");
+    }
+    try {
+      const response = await axios.post(`${API_BASE_URL}/register`, { name, email, password });
+      return response.data; 
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Registration failed");
+    }
+  }
+};
