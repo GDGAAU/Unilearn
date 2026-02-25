@@ -1,0 +1,64 @@
+.navbar {
+  width: 100%;
+  background-color: #fff9f1; /* The cream background from your screenshot */
+  padding: 15px 0;
+  font-family: 'McLaren', sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.logo a {
+  font-size: 28px;
+  font-weight: 400;
+  color: #E67E22;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #444;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.navLinks a:hover, .active {
+  color: #E67E22 !important;
+  font-weight: 600; /* Makes the active link pop like in the Figma */
+}
+
+.logoutBtn {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #f9ece0; /* Subtle border from screenshot */
+  padding: 10px 30px;
+  border-radius: 12px; /* Pill shape */
+  font-family: 'McLaren', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.logoutBtn:hover {
+  background-color: #f9ece0;
+  color: #E67E22;
+}
