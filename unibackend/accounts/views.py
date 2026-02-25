@@ -47,9 +47,13 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            _send_verification_email(user)
             return Response(
-                {"success": True, "message": "User registered successfully"},
+                {
+                    "success": True,
+                    "message": "User registered successfully. Please verify your email before login.",
+                },
                 status=status.HTTP_201_CREATED,
             )
         return Response(
@@ -92,6 +96,15 @@ class LoginView(APIView):
             return Response(
                 {"success": False, "message": "Invalid credentials"},
                 status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        if not user.is_email_verified:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Please verify your email before login",
+                },
+                status=status.HTTP_403_FORBIDDEN,
             )
 
         refresh = RefreshToken.for_user(user)
