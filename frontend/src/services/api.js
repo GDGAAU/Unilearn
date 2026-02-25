@@ -1,59 +1,52 @@
+import axios from "axios";
+
 const BASE_URL = "http://localhost:8000/api";
 
-const handleResponse = async (response) => {
-  if (!response.ok) {
-    if (response.status === 401) {
-       console.warn("Unauthorized: Please log in.");
-    }
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || `Error ${response.status}`);
+// This is the Axios engine
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// This replaces your manual getAuthHeaders()
+// It automatically grabs the token before every request
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    // We use 'Token' because that's what your Django backend expects
+    config.headers.Authorization = `Token ${token}`;
   }
-  return response.json();
-};
+  return config;
+});
 
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("token"); 
-  return token ? { "Authorization": `Token ${token}` } : {};
-};
-
+// We keep the name 'api' so your components don't break!
 export const api = {
   auth: {
     login: (credentials) => 
-      fetch(`${BASE_URL}/accounts/login/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials),
-      }).then(handleResponse),
+      axiosInstance.post("/accounts/login/", credentials).then(res => res.data),
   },
 
   projects: {
     getAll: () => 
-      fetch(`${BASE_URL}/projects/`, {
-        headers: { ...getAuthHeaders() }
-      }).then(handleResponse),
+      axiosInstance.get("/projects/").then(res => res.data),
     
     getById: (id) => 
-      fetch(`${BASE_URL}/projects/${id}/`, {
-        headers: { ...getAuthHeaders() }
-      }).then(handleResponse),
+      axiosInstance.get(`/projects/${id}/`).then(res => res.data),
 
     like: (id) => 
-      fetch(`${BASE_URL}/projects/${id}/like/`, {
-        method: "POST",
-        headers: { 
-          ...getAuthHeaders(),
-          "Content-Type": "application/json" 
-        },
-      }).then(handleResponse),
+      axiosInstance.post(`/projects/${id}/like/`).then(res => res.data),
   },
 
   resources: {
     getDownloadUrl: (id) => `${BASE_URL}/generic/download/${id}/`,
     upload: (formData) =>
-      fetch(`${BASE_URL}/generic/upload/`, {
-        method: "POST",
-        headers: { ...getAuthHeaders() },
-        body: formData,
-      }).then(handleResponse),
+      axiosInstance.post("/generic/upload/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then(res => res.data),
   }
 };
+
+// Also export the instance as default just in case your friend needs it
+export default axiosInstance;
