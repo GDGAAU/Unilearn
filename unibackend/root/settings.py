@@ -158,3 +158,5 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.getenv("JWT_REFRESH_LIFETIME", 7))),
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
+
+EMAIL_VERIFY_TOKEN_MINUTES = int(os.getenv("EMAIL_VERIFY_TOKEN_MINUTES", 10))
