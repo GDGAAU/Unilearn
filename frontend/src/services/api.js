@@ -2,7 +2,6 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8000/api";
 
-// This is the Axios engine
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -10,18 +9,17 @@ const axiosInstance = axios.create({
   },
 });
 
-// This replaces your manual getAuthHeaders()
-// It automatically grabs the token before every request
+
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
-    // We use 'Token' because that's what your Django backend expects
+   
     config.headers.Authorization = `Token ${token}`;
   }
   return config;
 });
 
-// We keep the name 'api' so your components don't break!
+
 export const api = {
   auth: {
     login: (credentials) => 
@@ -48,5 +46,5 @@ export const api = {
   }
 };
 
-// Also export the instance as default just in case your friend needs it
+
 export default axiosInstance;

@@ -15,15 +15,21 @@ const NavbarWrapper = () => (
 );
 
 const router = createBrowserRouter([
+  
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Signup /> },
+
+  
   {
     path: "/",
     element: <NavbarWrapper />,
     children: [
       { index: true, element: <Projects /> },
+      { path: "projects", element: <Projects /> },
       { path: "projects/:id", element: <ProjectDetails /> },
       { path: "courses", element: <Courses /> },
-      { path: "register", element: <Signup /> },
-      { path: "login", element: <Login /> },
+      { path: "instructors", element: <div style={{padding: "20px"}}>Instructors Page Coming Soon...</div> },
+      { path: "profile", element: <div style={{padding: "20px"}}>Profile Page Coming Soon...</div> },
     ],
   },
 ]);

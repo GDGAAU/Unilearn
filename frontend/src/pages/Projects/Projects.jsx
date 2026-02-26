@@ -43,7 +43,11 @@ const Projects = () => {
         </div>
       </div>
 
-      <h2 className={styles.deptTitle}>Software Engineering Department</h2>
+      <h2 className={styles.deptTitle}>
+        {projects.length > 0 && projects[0].department 
+          ? `${projects[0].department} Department` 
+          : "Academic Projects"}
+      </h2>
 
       <div className={styles.listContainer}>
         {filteredProjects.length > 0 ? (

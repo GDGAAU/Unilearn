@@ -1,6 +1,6 @@
 .navbar {
   width: 100%;
-  background-color: #fff9f1; /* The cream background from your screenshot */
+  background-color: #FFF2E3; 
   padding: 15px 0;
   font-family: 'McLaren', sans-serif;
   position: sticky;
@@ -42,15 +42,15 @@
 
 .navLinks a:hover, .active {
   color: #E67E22 !important;
-  font-weight: 600; /* Makes the active link pop like in the Figma */
+  font-weight: 600;
 }
 
 .logoutBtn {
   background-color: transparent;
   color: #333;
-  border: 1px solid #f9ece0; /* Subtle border from screenshot */
+  border: 1px solid #f9ece0; 
   padding: 10px 30px;
-  border-radius: 12px; /* Pill shape */
+  border-radius: 12px; 
   font-family: 'McLaren', sans-serif;
   font-size: 16px;
   cursor: pointer;
@@ -61,4 +61,60 @@
 .logoutBtn:hover {
   background-color: #f9ece0;
   color: #E67E22;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 2px;
+  background-color: #333; 
+  transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .navLinks {
+    display: none; 
+    position: absolute;
+    top: 80px; 
+    left: 0;
+    width: 100%;
+    background: #fff;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+
+  .navLinks.show {
+    display: flex; 
+  }
+
+  .actions {
+    display: none; 
+  }
+
+  .mobileLogout {
+    display: block;
+    width: 100%;
+  }
+
+  .barOpen:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .barOpen:nth-child(2) { opacity: 0; }
+  .barOpen:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+@media (min-width: 769px) {
+  .mobileLogout {
+    display: none;
+  }
 }
