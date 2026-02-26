@@ -30,6 +30,18 @@ class RefreshSerializer(serializers.Serializer):
     refresh = serializers.CharField()
 
 
+class VerifyEmailSerializer(serializers.Serializer):
+    token = serializers.CharField()
+
+
+class ResendVerificationSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class GoogleLoginSerializer(serializers.Serializer):
+    id_token = serializers.CharField()
+
+
 # -------------------------------
 # StudentProfile Serializers
 # -------------------------------
