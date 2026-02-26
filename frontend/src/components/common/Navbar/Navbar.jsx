@@ -22,7 +22,7 @@ const Navbar = () => {
           <Link to="/" onClick={closeMenu}>UNILEARN</Link>
         </div>
 
-    
+        {/* Hamburger Menu for Mobile */}
         <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
           <span className={isOpen ? styles.barOpen : ""}></span>
           <span className={isOpen ? styles.barOpen : ""}></span>
@@ -51,13 +51,13 @@ const Navbar = () => {
               Profile
             </Link>
           </li>
-         
+          
           <li className={styles.mobileLogout}>
             <button className={styles.logoutBtn} onClick={handleLogout}>Log Out</button>
           </li>
         </ul>
 
-        
+        {/* Desktop Actions */}
         <div className={styles.actions}>
           <button className={styles.logoutBtn} onClick={handleLogout}>Log Out</button>
         </div>
