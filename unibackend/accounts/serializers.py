@@ -38,6 +38,10 @@ class ResendVerificationSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
 
+class GoogleLoginSerializer(serializers.Serializer):
+    id_token = serializers.CharField()
+
+
 # -------------------------------
 # StudentProfile Serializers
 # -------------------------------
