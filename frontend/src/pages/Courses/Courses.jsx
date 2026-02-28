@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import courseService from "../../services/courseService";
-import CourseList from "../../components/courses/CourseList/CourseList";
-import styles from './Courses.module.css'; // Import
+import CourseList from '../../components/courses/CourseList/CourseList';
+import styles from './Courses.module.css';
 
 const Courses = () => {
-    const [courses, setCourses] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [resources, setResources] = useState([]);
 
-    useEffect(() => {
-        const fetchCourses = async () => {
-            try {
-                const data = await courseService.getAllCourses();
-                setCourses(data);
-            } catch (error) {
-                console.error("Error fetching courses:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchCourses();
-    }, []);
+  useEffect(() => {
+    setResources([
+      { id: 1, title: 'Distributed Systems', instructor_name: 'Dr. Abebe', course_code: '47', file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
+      { id: 2, title: 'Distributed Systems', instructor_name: 'Dr. Abebe', course_code: '47', file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
+      { id: 3, title: 'Distributed Systems', instructor_name: 'Dr. Abebe', course_code: '47', file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' },
+      { id: 4, title: 'Distributed Systems', instructor_name: 'Dr. Abebe', course_code: '47', file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf' }
+    ]);
+  }, []);
 
-    if (loading) return <div style={{ textAlign: 'center' }}>Loading Courses...</div>;
-
-    if (courses.length === 0) return <div style={{ textAlign: 'center' }}>No courses found.</div>;
-
-    return (
-        <div className={styles.container}>
-            <header className={styles.header}>
-                <h1>Explore Courses</h1>
-                <p>Find academic resources and student projects.</p>
-            </header>
-            <CourseList courses={courses} />
+  return (
+    <div className={styles.page}>
+      <div className={styles.searchBarContainer}>
+        <div className={styles.searchInner}>
+          <input type="text" placeholder="Search..." className={styles.searchInput} />
+          <span className={styles.searchIcon}>🔍</span>
         </div>
-    );
+      </div>
+
+      <div className={styles.contentContainer}>
+        <h1 className={styles.title}>Software Engineering Department</h1>
+        <CourseList courses={resources} />
+      </div>
+    </div>
+  );
 };
 
 export default Courses;
