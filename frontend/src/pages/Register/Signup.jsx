@@ -3,14 +3,40 @@ import { useNavigate, Link } from "react-router-dom";
 import styles from "./Signup.module.css";
 import signupImg from "../../assets/signup-image.png";
 import { useAuth } from "../../context/AuthContext";
-import { authService } from "../../services/authService"; // keep this for register function
+import { authService } from "../../services/authService";
 
-function validate(values) {}
+function validate(values) {
+  const errors = {};
+
+  if (!values.name.trim()) {
+    errors.name = "Full name is required";
+  }
+
+  if (!values.email.trim()) {
+    errors.email = "Email is required";
+  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    errors.email = "Email is invalid";
+  }
+
+  if (!values.password) {
+    errors.password = "Password is required";
+  } else if (values.password.length < 6) {
+    errors.password = "Password must be at least 6 characters";
+  }
+
+  if (!values.confirmPassword) {
+    errors.confirmPassword = "Please confirm your password";
+  } else if (values.password !== values.confirmPassword) {
+    errors.confirmPassword = "Passwords do not match";
+  }
+
+  return errors;
+}
 
 export default function Signup() {
   const [values, setValues] = useState({
-    email: "",
     name: "",
+    email: "",
     password: "",
     confirmPassword: "",
   });
@@ -24,9 +50,43 @@ export default function Signup() {
 
   if (contextLoading) return <div>Loading...</div>;
 
-  function handleChange(e) {}
+  function handleChange(e) {
+    const { name, value } = e.target;
 
-  async function handleSubmit(e) {}
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setServerError("");
+
+    const validationErrors = validate(values);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) return;
+
+    try {
+      setFormLoading(true);
+
+      const data = await authService.register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+
+      // Assuming backend returns { user, token }
+      loginUser(data);
+
+      navigate("/");
+    } catch (error) {
+      setServerError(error.message);
+    } finally {
+      setFormLoading(false);
+    }
+  }
 
   return (
     <div className={styles.page}>
@@ -51,8 +111,65 @@ export default function Signup() {
                 <p className={styles.serverError}>{serverError}</p>
               )}
 
-              {/* Name, Email, Password, Confirm Password fields */}
-              {/* ... same as before */}
+              {/* Full Name */}
+              <div className={styles.inputGroup}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  value={values.name}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+                {errors.name && (
+                  <p className={styles.error}>{errors.name}</p>
+                )}
+              </div>
+
+              {/* Email */}
+              <div className={styles.inputGroup}>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={values.email}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+                {errors.email && (
+                  <p className={styles.error}>{errors.email}</p>
+                )}
+              </div>
+
+              {/* Password */}
+              <div className={styles.inputGroup}>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={values.password}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+                {errors.password && (
+                  <p className={styles.error}>{errors.password}</p>
+                )}
+              </div>
+
+              {/* Confirm Password */}
+              <div className={styles.inputGroup}>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={values.confirmPassword}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+                {errors.confirmPassword && (
+                  <p className={styles.error}>{errors.confirmPassword}</p>
+                )}
+              </div>
 
               <div className={styles.buttonWrapper}>
                 <button

@@ -11,7 +11,6 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 0;
 }
 
 .container {
@@ -23,10 +22,11 @@
   overflow: hidden;
   box-shadow: 0 4px 24px rgba(180, 140, 80, 0.08),
               0 1px 4px rgba(0, 0, 0, 0.04);
-  height: 90vh; /* fits viewport */
+  height: 90vh;
 }
 
-/* Left Image Panel */
+/* ========== Left Image Panel ========== */
+
 .imageWrapper {
   flex: 1;
   position: relative;
@@ -40,7 +40,6 @@
   display: block;
 }
 
-/* Subtle overlay */
 .imageWrapper::after {
   content: "";
   position: absolute;
@@ -53,21 +52,23 @@
   pointer-events: none;
 }
 
-/* Right Form Panel */
+/* ========== Right Form Panel ========== */
+
 .formPanel {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 24px 32px;
+  padding: 32px;
   box-sizing: border-box;
-  height: 100%;
 }
 
 /* Brand Header */
+
 .brandHeader {
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .brandName {
@@ -83,47 +84,52 @@
   font-size: 14px;
   font-style: italic;
   color: hsl(31, 79%, 48%);
-  margin: 0 auto 12px auto;
+  margin-bottom: 12px;
   font-family: "Poppins", sans-serif;
 }
 
 /* Heading */
+
 .heading {
   font-size: 20px;
   font-weight: 700;
   color: hsl(30, 8%, 20%);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   text-align: center;
 }
 
 /* Form */
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
   max-width: 380px;
 }
 
-.fieldGroup {
+/* Input Group */
+
+.inputGroup {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.label {
-  font-size: 14px;
-  font-weight: 600;
-  color: hsl(30, 8%, 20%);
-}
+/* Input */
 
 .input {
-  padding: 10px 14px;
+  padding: 12px 14px;
   font-size: 15px;
   border: 1px solid hsl(31, 79%, 48%);
-  border-radius: 6px;
-  background-color: #fff2e3;
+  border-radius: 8px;
+  background-color: #fff;
   outline: none;
+  transition: 0.2s ease;
+}
+
+.input:focus {
+  border-color: #c07818;
 }
 
 .input::placeholder {
@@ -131,21 +137,26 @@
   color: hsl(31, 79%, 48%);
 }
 
-.inputError {
-  border-color: #f87171;
-  background-color: #fff5f5;
-}
+/* Error Styles */
 
-.errorText {
+.error {
   font-size: 12px;
   color: #dc2626;
 }
 
-/* Submit Button */
+.serverError {
+  font-size: 13px;
+  color: #dc2626;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Button */
+
 .buttonWrapper {
   display: flex;
   justify-content: center;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .submitButton {
@@ -165,59 +176,56 @@
   background-color: #c07818;
 }
 
-/* Signup link */
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Login Link */
+
 .signupText {
   margin-top: 10px;
   font-size: 14px;
-  color: #000;
   text-align: center;
 }
 
 .signupText a {
   color: hsl(31, 79%, 48%);
   font-weight: 600;
+  text-decoration: none;
 }
 
-/* ===== Mobile Responsive ===== */
+/* ========== Responsive ========== */
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    height: auto; /* allow natural height */
+    height: auto;
     border-radius: 16px;
   }
 
   .imageWrapper {
     width: 100%;
-    max-height: 180px;
+    max-height: 200px;
   }
 
   .image {
-    height: 180px;
+    height: 200px;
   }
 
   .formPanel {
-    width: 100%;
     padding: 20px 16px;
-  }
-
-  .brandName {
-    font-size: 26px;
-  }
-
-  .tagline {
-    font-size: 13px;
-  }
-
-  .heading {
-    font-size: 18px;
-  }
-
-  .submitButton {
-    font-size: 15px;
-    padding: 12px 0;
   }
 
   .form {
     max-width: 100%;
+  }
+
+  .brandName {
+    font-size: 24px;
+  }
+
+  .heading {
+    font-size: 18px;
   }
 }
