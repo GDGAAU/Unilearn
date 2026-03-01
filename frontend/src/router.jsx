@@ -8,7 +8,7 @@ import Signup from "./pages/Register/Signup";
 import Login from "./pages/Login/Login";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import Home from "./pages/Home/Home"; 
-
+import Profile from "./pages/profile/profile"; 
 
 import { useAuth } from "./context/AuthContext";
 
@@ -18,13 +18,11 @@ function PrivateRoute({ children }) {
 }
 
 const router = createBrowserRouter([
-  // Public routes
-  { path: "/", element: <Home /> }, // Default landing page
+  { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Signup /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
 
-  // Protected main app routes (only visible after login)
   {
     path: "/app",
     element: (
@@ -39,7 +37,7 @@ const router = createBrowserRouter([
       { path: "courses", element: <Courses /> },
       { path: "courses/:id", element: <CourseDetails /> },
       { path: "instructors", element: <div style={{ padding: "20px" }}>Instructors Page Coming Soon...</div> },
-      { path: "profile", element: <div style={{ padding: "20px" }}>Profile Page Coming Soon...</div> },
+      { path: "profile", element: <Profile /> }, 
     ],
   },
 ]);
