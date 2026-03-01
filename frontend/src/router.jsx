@@ -8,6 +8,8 @@ import Signup from "./pages/Register/Signup";
 import Login from "./pages/Login/Login";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import Home from "./pages/Home/Home"; 
+import Instructors from "./pages/Instructors/Instructors";
+import InstructorDetails from "./components/instructors/InstructorDetails/InstructorDetails";
 
 
 import { useAuth } from "./context/AuthContext";
@@ -24,6 +26,11 @@ const router = createBrowserRouter([
   { path: "/register", element: <Signup /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
 
+
+  { path: "instructors", element: <Instructors/>  },
+  { path: "instructors/:id", element: <InstructorDetails/>  },
+
+
   // Protected main app routes (only visible after login)
   {
     path: "/app",
@@ -38,7 +45,6 @@ const router = createBrowserRouter([
       { path: "projects/:id", element: <ProjectDetails /> },
       { path: "courses", element: <Courses /> },
       { path: "courses/:id", element: <CourseDetails /> },
-      { path: "instructors", element: <div style={{ padding: "20px" }}>Instructors Page Coming Soon...</div> },
       { path: "profile", element: <div style={{ padding: "20px" }}>Profile Page Coming Soon...</div> },
     ],
   },
