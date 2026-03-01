@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.emptyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  width: 100%;
+}
+
+.emptyMessage {
+  color: #888888;
+  font-style: italic;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+@media (max-width: 400px) {
+  .grid {
+    grid-template-columns: 1fr; 
+    gap: 15px;
+  }
+}

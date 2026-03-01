@@ -1,0 +1,153 @@
+
+.page {
+  min-height: 100vh;
+  background-color:hsl(30, 100%, 98%);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== Content area ===== */
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  padding-bottom: 30px;
+}
+
+/* ===== Search bar ===== */
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;  
+  /*  */
+  border-radius: 999px;
+  background-color: #ffff;
+  padding: 6px 15px 6px 20px;
+  margin-bottom: 28px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #262626;
+  background: transparent;
+  font-family: inherit;
+}
+
+
+
+.searchInput::placeholder {
+  color: #b0a89e;
+}
+
+.searchButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #d4851c;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.searchButton:hover {
+  opacity: 0.9;
+}
+
+.searchIcon {
+  width: 16px;
+  height: 16px;
+  color: #ffffff;
+}
+
+/* ===== Department section ===== */
+.departmentSection {
+  background-color: hsl(32, 100%, 96%);
+  border-radius: 12px;
+  padding: 10px 15px ;
+  padding-bottom: 45px;
+  box-shadow: 5px 5px 2px hsl(31, 75%, 89%);
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 24px;
+
+}
+
+.departmentName {
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: "McLaren", sans-serif;
+  color: #d4851c;
+  margin: 0 0 20px;
+}
+
+.instructorGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* ===== Loading / Error / Empty ===== */
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 64px 0;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5ddd4;
+  border-top-color: #d4851c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorBox {
+  background-color: #fde8e8;
+  color: #b91c1c;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.emptyText {
+  text-align: center;
+  color: #737373;
+  font-size: 15px;
+  padding: 40px 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .content {
+    padding: 16px 16px 48px;
+  }
+
+  .instructorGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .departmentSection {
+    padding: 16px 20px;
+  }
+
+  .departmentName {
+    font-size: 18px;
+  }
+}
