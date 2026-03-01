@@ -1,0 +1,362 @@
+.page {
+  min-height: 100vh;
+  background-color: hsl(30, 100%, 98%);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== Content ===== */
+.content {
+  max-width: 95%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+/* ===== Back button ===== */
+.backButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #737373;
+  padding: 0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.backButton:hover {
+  color: #d4851c;
+}
+
+.backArrow {
+  font-size: 18px;
+}
+
+/* ===== Department title ===== */
+.departmentTitle {
+  color: #d4851c;
+  margin: 0 0 20px;
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: "McLaren", sans-serif;
+}
+
+/* ===== Instructor header card ===== */
+.headerCard {
+  background-color: hsl(32, 100%, 96%);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+
+  background-color: hsl(32, 100%, 96%);
+  border-radius: 12px;
+  padding: 40px px ;
+  padding-bottom: 45px;
+  box-shadow: 5px 5px 2px hsl(31, 75%, 89%);
+  
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerAvatar {
+  width: 100px;
+  
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.headerName {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #d4851c;
+  margin: 0;
+  font-family: "McLaren", sans-serif; 
+}
+
+.headerSubjects {
+  font-size: 1.2rem;
+  color: #262626;
+  font-weight: 700;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  
+
+}
+
+.headerSubjectsLabel {
+  font-weight: 700;
+  color: hsl(31, 79%, 48%);
+
+}
+
+/* ===== Add Comments button ===== */
+.addCommentButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+
+.commentDiv{
+display: flex;
+gap: 10px;
+align-items: center;
+justify-content: center;
+}
+
+
+.addCommentIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #d4851c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.addCommentText {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #262626;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.addCommentNote {
+  font-size: 0.7rem;
+  font-style: italic;
+  color: #737373;
+  margin: 0;
+  max-width: 180px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-style: italic;
+  text-align: left;
+}
+
+/* ===== Comment Form ===== */
+.commentFormCard {
+  background-color: hsl(32, 100%, 96%);
+  border-radius: 12px;
+  padding-top: 20px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-bottom: 30px;
+
+
+
+  border-radius: 12px;
+  box-shadow: 5px 5px 2px hsl(31, 75%, 89%);
+  
+}
+
+.commentFormHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.commentFormAvatar {
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.commentFormName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d4851c;
+  margin: 0;
+  font-family: "McLaren", sans-serif;
+}
+
+.commentTextarea {
+  width: 100%;
+  min-height: 150px;
+  border: 1px solid #e5ddd4;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #262626;
+  resize: vertical;
+  outline: none;
+  background-color: hsl(0, 0%, 100%);
+  box-sizing: border-box;
+}
+
+.commentTextarea:focus {
+  border-color: #d4851c;
+  box-shadow: 0 0 0 2px rgba(212, 133, 28, 0.15);
+}
+
+.commentFormActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.postButton {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #d4851c;
+  cursor: pointer;
+  padding: 10px 8px;
+  margin-bottom: 5px;
+}
+
+.postButton:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.postButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== Comment card ===== */
+.commentCard {
+  background-color: hsl(32, 100%, 96%);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  
+  box-shadow: 5px 5px 2px hsl(31, 75%, 89%);
+
+ 
+}
+
+
+
+
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.commentAvatar {
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.commentAuthor {
+  font-size: 14px;
+  font-weight: 500;
+  color: #d4851c;
+  font-family: "McLaren", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+
+.commentText {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #333333;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== Loading / Error / Empty ===== */
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 64px 0;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5ddd4;
+  border-top-color: #d4851c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorBox {
+  background-color: #fde8e8;
+  color: #b91c1c;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.emptyComments {
+  text-align: center;
+  color: #737373;
+  font-size: 14px;
+  padding: 32px 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .content {
+    padding: 16px 16px 48px;
+  }
+
+  .headerCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .addCommentButton {
+    align-items: flex-start;
+  }
+
+  .addCommentNote {
+    text-align: left;
+  }
+
+  .departmentTitle {
+    font-size: 20px;
+  }
+}

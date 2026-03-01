@@ -93,7 +93,7 @@ const Login = () => {
   Forgot Password?
 </Link>
         </form>
-        <p className={styles.signupText}>Don't have an account?<Link to="/Signup">Sign up</Link></p>
+        <p className={styles.signupText}>Don't have an account?<Link to="/register">Sign up</Link></p>
       </div>
     </div>
   );
