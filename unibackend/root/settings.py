@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'courses',
     'instructors',
     'projects',
+    'resources',
+    'drf_yasg',
 
 ]
 
@@ -91,6 +93,9 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_PASSWORD", "root"),
         "HOST": os.getenv("DB_HOST", "localhost"),
         "PORT": os.getenv("DB_PORT", "5432"),
+        "OPTIONS": {
+            'sslmode': 'require',
+        },
     }
 }
 
@@ -112,6 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = '/api-auth/login/'
 
 # Internationalization
 
@@ -127,7 +133,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+# Static files
+
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static", 
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 AUTH_USER_MODEL = "accounts.User"
 
 # rest framework and JWT settings
@@ -146,3 +158,20 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.getenv("JWT_REFRESH_LIFETIME", 7))),
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
+
+EMAIL_VERIFY_TOKEN_MINUTES = int(os.getenv("EMAIL_VERIFY_TOKEN_MINUTES", 10))
+FRONTEND_VERIFY_EMAIL_URL = os.getenv("FRONTEND_VERIFY_EMAIL_URL", "")
+
+# Email delivery settings (console by default for local development)
+EMAIL_BACKEND = os.getenv(
+    "EMAIL_BACKEND",
+    "django.core.mail.backends.console.EmailBackend",
+)
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@unilearn.local")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
