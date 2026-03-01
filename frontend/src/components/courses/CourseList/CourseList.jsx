@@ -1,15 +1,22 @@
 import React from 'react';
-import CourseCard from "../CourseCard/CourseCard";
+import CourseCard from '../CourseCard/CourseCard';
 import styles from './CourseList.module.css';
 
 const CourseList = ({ courses }) => {
-    return (
-        <div className={styles.grid}> {/* Used className instead of style */}
-            {courses.map(course => (
-                <CourseCard key={course.id} course={course} />
-            ))}
-        </div>
-    );
+  if (!courses || courses.length === 0) {
+    return <p className={styles.empty}>No academic resources found.</p>;
+  }
+
+  return (
+    <div className={styles.grid}>
+      {courses.map((item) => (
+        <CourseCard 
+          key={item.id} 
+          resource={item}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default CourseList;

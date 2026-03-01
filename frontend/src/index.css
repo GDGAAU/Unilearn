@@ -1,13 +1,22 @@
-/* Remove default browser spacing */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --dark-orange: #D35400;     
+  --off-white: #FFFAF5;       
+  --primary-text: #1A1A1A;    
+  --cream-card: #FFF4E6;      
+  --page-bg: #F5F5F5;
+  --border-light: #FFE0B2;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  height: 100%;
-  width: 100%;
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--page-bg);
+  color: var(--primary-text);
 }

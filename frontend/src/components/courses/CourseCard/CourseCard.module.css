@@ -1,15 +1,46 @@
 .card {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #ffffff;
+  border: 1px solid #FFE0B2;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
 }
 
-.link {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    display: inline-block;
-    margin-top: 10px;
+.imageHeader {
+  background-color: #34495E;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration { font-size: 3rem; }
+
+.cardBody { padding: 15px; }
+
+.infoLine {
+  font-size: 0.75rem;
+  margin: 3px 0;
+  color: var(--primary-text);
+}
+
+.orangeLabel {
+  color: var(--dark-orange);
+  font-weight: 700;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.downloadLink {
+  background: none;
+  border: none;
+  color: var(--dark-orange);
+  font-weight: 700;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
 }
