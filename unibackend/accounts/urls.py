@@ -10,11 +10,11 @@ from .views import (
 )
 
 urlpatterns = [
-    path("register", RegisterView.as_view(), name="register"),
-    path("login", LoginView.as_view(), name="login"),
-    path("me", MeView.as_view(), name="me"),
-    path("refresh", RefreshTokenView.as_view(), name="refresh"),
-    path("verify-email", VerifyEmailView.as_view(), name="verify-email"),
-    path("resend-verification", ResendVerificationView.as_view(), name="resend-verification"),
-    path("google", GoogleLoginView.as_view(), name="google-login"),
+    path("register/", RegisterView.as_view()),
+    path("login/", LoginView.as_view()),
+    path("me/", MeView.as_view()),
+    path("refresh/", RefreshTokenView.as_view()),
+    path("verify-email/", VerifyEmailView.as_view()),
+    path("resend-verification/", ResendVerificationView.as_view()),
+    path("google/", GoogleLoginView.as_view()),
 ]
