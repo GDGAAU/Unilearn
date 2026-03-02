@@ -201,22 +201,53 @@ justify-content: center;
   font-family: "McLaren", sans-serif;
 }
 
-.commentTextarea {
+
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;      /* space between label and textarea */
+  margin-bottom: 16px;  /* space between fields */
+}
+
+.formGroup label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #262626;
+}
+
+
+.postButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none; /* remove underline hover */
+}
+
+.commentTextarea,
+.commentInput {
   width: 100%;
-  min-height: 150px;
   border: 1px solid #e5ddd4;
   border-radius: 8px;
   padding: 12px 14px;
   font-size: 1rem;
   font-family: inherit;
   color: #262626;
-  resize: vertical;
   outline: none;
   background-color: hsl(0, 0%, 100%);
   box-sizing: border-box;
 }
 
-.commentTextarea:focus {
+.commentInput {
+  height: 44px;   /* for normal text inputs */
+}
+
+.commentTextarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.commentTextarea:focus,
+.commentInput:focus {
   border-color: #d4851c;
   box-shadow: 0 0 0 2px rgba(212, 133, 28, 0.15);
 }
@@ -239,6 +270,9 @@ justify-content: center;
   margin-bottom: 5px;
 }
 
+
+
+
 .postButton:hover {
   text-decoration: underline;
   cursor: pointer;
@@ -259,6 +293,21 @@ justify-content: center;
   box-shadow: 5px 5px 2px hsl(31, 75%, 89%);
 
  
+}
+
+
+
+/* ===== Success message ===== */
+.successBox {
+  background-color: #d4edda; /* light green background */
+  color: #155724; /* dark green text */
+  border: 1px solid #c3e6cb; /* green border */
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+  font-family: "Poppins", sans-serif;
 }
 
 

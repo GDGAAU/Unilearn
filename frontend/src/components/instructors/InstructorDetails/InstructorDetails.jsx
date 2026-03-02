@@ -5,121 +5,189 @@ import Navbar from "../../common/Navbar/Navbar";
 import styles from "./InstructorDetails.module.css";
 import instructorAvatar from "../../../assets/instructor-avatar.png";
 
-const MOCK_COMMENTS = [
+// --------------------
+// Demo / fallback data
+// --------------------
+const DEMO_INSTRUCTOR = {
+  id: 1,
+  name: "Dr. Jane Smith",
+  avatar: instructorAvatar,
+  subjects: [
+    { subject_name: "DSP" },
+    { subject_name: "EAD" },
+    { subject_name: "HCI" },
+  ],
+};
+
+const DEMO_INSIGHTS = [
   {
     id: 1,
-    author_name: "Demo User",
-    avatar: instructorAvatar,
-    text: "Great instructor. Very clear explanations.",
+    teaching_style: "Concept-focused",
+    assessment_type: "Projects and exams",
+    workload_level: "Medium",
+    status: "approved",
+  },
+  {
+    id: 2,
+    teaching_style: "Practical-heavy",
+    assessment_type: "Assignments only",
+    workload_level: "Low",
+    status: "approved",
   },
 ];
 
+// --------------------
+// Backend API helpers
+// Replace these with real API calls later
+// --------------------
+async function getInstructorDetails(id, token) {
+  if (!token) {
+    // demo fallback
+    await new Promise((r) => setTimeout(r, 300));
+    return DEMO_INSTRUCTOR;
+  }
+
+  // Example real backend call:
+  // const res = await fetch(`/api/instructors/${id}/`, {
+  //   headers: { Authorization: `Bearer ${token}` },
+  // });
+  // return await res.json();
+
+  await new Promise((r) => setTimeout(r, 300)); // simulate delay
+  return DEMO_INSTRUCTOR; // demo fallback
+}
+
+async function getInstructorInsights(id, token) {
+  if (!token) {
+    await new Promise((r) => setTimeout(r, 300));
+    return DEMO_INSIGHTS;
+  }
+
+  // Example real backend call:
+  // const res = await fetch(`/api/instructors/${id}/insights/`, {
+  //   headers: { Authorization: `Bearer ${token}` },
+  // });
+  // return await res.json();
+
+  await new Promise((r) => setTimeout(r, 300));
+  return DEMO_INSIGHTS;
+}
+
+async function postInsight(id, payload, token) {
+  if (!token) {
+    await new Promise((r) => setTimeout(r, 300));
+    return { ...payload, id: Date.now(), status: "pending" }; // mark as pending
+  }
+
+  // Example real backend POST:
+  // const res = await fetch(`/api/instructors/${id}/insights/`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  //   body: JSON.stringify(payload),
+  // });
+  // return await res.json();
+
+  await new Promise((r) => setTimeout(r, 300));
+  return { ...payload, id: Date.now(), status: "pending" };
+}
+
+// --------------------
+// Component
+// --------------------
 export default function InstructorDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user, token, logout } = useAuth();
 
   const [details, setDetails] = useState(null);
-  const [comments, setComments] = useState([]);
+  const [insights, setInsights] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [showForm, setShowForm] = useState(false);
-  const [commentText, setCommentText] = useState("");
+  const [formData, setFormData] = useState({
+    teaching_style: "",
+    assessment_type: "",
+    workload_level: "",
+  });
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-
-
-
-  // Fetch instructor details
+  // --------------------
+  // Fetch instructor details + insights
+  // --------------------
   useEffect(() => {
     let cancelled = false;
 
-    async function fetchDetails() {
+    async function fetchData() {
       setLoading(true);
-      setError("");
       try {
-        if (token) {
-          const data = await getInstructorDetails(id, token);
-          if (!cancelled) {
-            setDetails(data);
-            setComments(data.comments || MOCK_COMMENTS);
-          }
-        } else {
-          if (!cancelled) {
-            setDetails({ id, name: "Instructor Name", subjects: ["Demo Subject"] });
-            setComments(MOCK_COMMENTS);
-          }
+        const [detailsData, insightsData] = await Promise.all([
+          getInstructorDetails(id, token),
+          getInstructorInsights(id, token),
+        ]);
+        if (!cancelled) {
+          setDetails(detailsData);
+          setInsights(insightsData.filter((i) => i.status === "approved")); // only show approved
         }
-      } catch (err) {
-        if (!cancelled) setError("Failed to load instructor details.");
-        if (!cancelled) setComments(MOCK_COMMENTS);
+      } catch {
+        if (!cancelled) {
+          setDetails(DEMO_INSTRUCTOR);
+          setInsights(DEMO_INSIGHTS.filter((i) => i.status === "approved"));
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
 
-    fetchDetails();
+    fetchData();
     return () => { cancelled = true; };
   }, [id, token]);
 
+  // --------------------
+  // Submit insight
+  // --------------------
+  async function handleSubmitInsight() {
+    const { teaching_style, assessment_type, workload_level } = formData;
+    if (!teaching_style || !assessment_type || !workload_level) return;
 
-
-
-
-
-  // Post comment with backend moderation
-  async function handlePostComment() {
-    if (!commentText.trim()) return;
     setPosting(true);
     setError("");
 
     try {
-      if (token) {
-        // Send comment to backend
-        const response = await postComment(id, commentText, token);
+      const newInsight = await postInsight(id, formData, token);
 
-        if (response.success) {
-          // Approved by backend
-          setComments((prev) => [response.comment, ...prev]);
-          setCommentText("");
-          setShowForm(false);
-        } else {
-          // Rejected by moderation
-          setError(response.message || "Comment rejected by moderation.");
-        }
-      } else {
-        // Local fallback for demo users
-        const newComment = {
-          id: Date.now(),
-          author_name: user?.name || "You",
-          avatar: instructorAvatar,
-          text: commentText.replace(/<[^>]*>/g, "").trim(),
-        };
-        setComments((prev) => [newComment, ...prev]);
-        setCommentText("");
-        setShowForm(false);
-      }
+      // Do NOT add pending insight to UI (simulate review workflow)
+      setFormData({ teaching_style: "", assessment_type: "", workload_level: "" });
+      setShowForm(false);
+      setSuccessMessage("Your insight has been sent for review.");
+
+      setTimeout(() => setSuccessMessage(""), 5000);
     } catch (err) {
-      setError(err.message || "Failed to post comment.");
+      setError(err.message || "Failed to submit insight.");
     } finally {
       setPosting(false);
     }
   }
 
+  const subjectsList = details?.subjects?.map((s) => s.subject_name).join(", ") || "N/A";
 
-  
-  const displayInstructor = details;
-  const subjectsList = Array.isArray(displayInstructor?.subjects)
-    ? displayInstructor.subjects.join(", ")
-    : displayInstructor?.subjects || "";
-
+  // --------------------
+  // JSX
+  // --------------------
   return (
     <div className={styles.page}>
       <Navbar activePage="Instructors" onLogout={logout} />
 
       <div className={styles.content}>
-        <button type="button" className={styles.backButton} onClick={() => navigate("/instructors")}>
+        <button
+          type="button"
+          className={styles.backButton}
+          onClick={() => navigate("/instructors")}
+        >
           <span className={styles.backArrow}>&lt;</span> Back to Instructors
         </button>
 
@@ -131,19 +199,21 @@ export default function InstructorDetails() {
           </div>
         )}
 
-        {!loading && displayInstructor && (
+        {!loading && details && (
           <>
+            {/* Header Card */}
             <div className={styles.headerCard}>
               <div className={styles.headerLeft}>
                 <img
-                  src={displayInstructor.avatar || instructorAvatar}
-                  alt={`${displayInstructor.name} avatar`}
+                  src={details.avatar || instructorAvatar}
+                  alt={`${details.name} avatar`}
                   className={styles.headerAvatar}
                 />
                 <div className={styles.headerInfo}>
-                  <h2 className={styles.headerName}>{displayInstructor.name}</h2>
+                  <h2 className={styles.headerName}>{details.name}</h2>
                   <p className={styles.headerSubjects}>
-                    <span className={styles.headerSubjectsLabel}>Subjects:</span> {subjectsList}
+                    <span className={styles.headerSubjectsLabel}>Subjects:</span>{" "}
+                    {subjectsList}
                   </p>
                 </div>
               </div>
@@ -156,7 +226,7 @@ export default function InstructorDetails() {
               >
                 <div className={styles.commentDiv}>
                   <span className={styles.addCommentIcon}>+</span>
-                  <span className={styles.addCommentText}>Add Comments</span>
+                  <span className={styles.addCommentText}>Add Insight</span>
                 </div>
                 <span className={styles.addCommentNote}>
                   Please be mindful of the words and connotations you use
@@ -164,7 +234,7 @@ export default function InstructorDetails() {
               </button>
             </div>
 
-            {/* Comment Form */}
+            {/* Insight Form */}
             {showForm && (
               <div className={styles.commentFormCard}>
                 <div className={styles.commentFormHeader}>
@@ -176,15 +246,41 @@ export default function InstructorDetails() {
                   <h3 className={styles.commentFormName}>{user?.name || "You"}</h3>
                 </div>
 
-                <textarea
-                  className={styles.commentTextarea}
-                  placeholder="Write your comment here..."
-                  value={commentText}
-                  onChange={(e) => {
-                    setCommentText(e.target.value);
-                    setError(""); // clear previous error
-                  }}
-                />
+                <div className={styles.formGroup}>
+                  <label>Teaching Style:</label>
+                  <textarea
+                    className={styles.commentTextarea}
+                    value={formData.teaching_style}
+                    onChange={(e) =>
+                      setFormData({ ...formData, teaching_style: e.target.value })
+                    }
+                    placeholder="e.g. Concept-focused"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Assessment Type:</label>
+                  <textarea
+                    className={styles.commentTextarea}
+                    value={formData.assessment_type}
+                    onChange={(e) =>
+                      setFormData({ ...formData, assessment_type: e.target.value })
+                    }
+                    placeholder="e.g. Projects and exams"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Workload Level:</label>
+                  <textarea
+                    className={styles.commentTextarea}
+                    value={formData.workload_level}
+                    onChange={(e) =>
+                      setFormData({ ...formData, workload_level: e.target.value })
+                    }
+                    placeholder="e.g. Medium"
+                  />
+                </div>
 
                 {error && <div className={styles.errorBox}>{error}</div>}
 
@@ -192,35 +288,48 @@ export default function InstructorDetails() {
                   <button
                     type="button"
                     className={styles.postButton}
-                    onClick={handlePostComment}
-                    disabled={posting || !commentText.trim()}
+                    onClick={handleSubmitInsight}
+                    disabled={
+                      posting ||
+                      !formData.teaching_style.trim() ||
+                      !formData.assessment_type.trim() ||
+                      !formData.workload_level.trim()
+                    }
                   >
-                    {posting ? "Posting..." : "Post"}
+                    {posting ? "Posting..." : "Submit"}
                   </button>
                 </div>
               </div>
             )}
 
-            {/* Comments Section */}
-            {comments.length === 0 && (
-              <p className={styles.emptyComments}>No comments yet. Be the first!</p>
+            {successMessage && (
+              <div className={styles.successBox}>{successMessage}</div>
             )}
 
-            {comments.map((comment) => (
-              <div key={comment.id} className={styles.commentCard}>
-                <div className={styles.commentHeader}>
-                  <img
-                    src={comment.avatar || instructorAvatar}
-                    alt={`${comment.author_name} avatar`}
-                    className={styles.commentAvatar}
-                  />
-                  <div>
-                    <h4 className={styles.commentAuthor}>{comment.author_name}</h4>
-                    <p className={styles.commentText}>{comment.text}</p>
+            {/* Insights Section */}
+            {insights.length === 0 ? (
+              <p className={styles.emptyComments}>No insights yet. Be the first!</p>
+            ) : (
+              insights.map((insight) => (
+                <div key={insight.id} className={styles.commentCard}>
+                  <div className={styles.commentHeader}>
+                    <img
+                      src={instructorAvatar}
+                      alt="avatar"
+                      className={styles.commentAvatar}
+                    />
+                    <div>
+                      <h4 className={styles.commentAuthor}>Insight</h4>
+                      <p className={styles.commentText}>
+                        <strong>Teaching Style:</strong> {insight.teaching_style} <br />
+                        <strong>Assessment:</strong> {insight.assessment_type} <br />
+                        <strong>Workload:</strong> {insight.workload_level}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </>
         )}
       </div>
