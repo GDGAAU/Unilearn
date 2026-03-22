@@ -43,6 +43,28 @@ export const api = {
       axiosInstance.post("/generic/upload/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       }).then(res => res.data),
+  },
+  
+  instructors: {
+    // GET /api/instructors/
+    getAll: () => 
+      axiosInstance.get("/instructors/").then(res => res.data),
+
+    // POST /api/instructors/
+    create: (formData) =>
+      axiosInstance.post("/instructors/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then(res => res.data),
+
+    // PUT /api/instructors/{id}/
+    update: (id, formData) =>
+      axiosInstance.put(`/instructors/${id}/`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      }).then(res => res.data),
+
+    // DELETE /api/instructors/{id}/
+    delete: (id) =>
+      axiosInstance.delete(`/instructors/${id}/`).then(res => res.data),
   }
 };
 

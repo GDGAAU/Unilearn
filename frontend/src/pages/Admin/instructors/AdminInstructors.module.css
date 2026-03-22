@@ -1,0 +1,156 @@
+
+.page {
+  min-height: 100vh;
+  background-color: #FFFAF5;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  width: 90%;
+  margin: 0 auto 30px;
+  gap: 18px;
+}
+
+.searchSection {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0; 
+}
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+}
+
+
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2000;
+}
+
+.insightModal {
+  background: #FFFAF5;
+  padding: 30px;
+  border-radius: 20px;
+  width: 350px;
+  position: relative;
+  border-top: 6px solid #DA7D19;
+  text-align: center;
+}
+
+.closeBtn {
+  position: absolute; top: 10px; right: 15px;
+  background: none; border: none; font-size: 24px; cursor: pointer;
+}
+
+.divider {
+  height: 1px; background: #eee; margin: 15px 0;
+}
+
+.desc {
+  font-style: italic; color: #DA7D19; font-size: 0.9rem;
+}
+
+.inputWrapper input {
+  width: 100%;
+  padding: 10px 50px 10px 25px; 
+  border-radius: 50px;
+  border: 1px solid #999;
+  font-size: 18px;
+  font-style: italic;
+  color: #E67E22;
+  outline: none;
+  background: white;
+}
+
+.inputWrapper input:focus {
+  border-color: #ff8c00;
+  box-shadow: 0 4px 12px rgba(255, 140, 0, 0.15);
+}
+
+
+.iconButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #DA7D19!important; 
+  width: 31px !important;
+  height: 31px !important;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: none; 
+}
+
+.iconButton svg {
+  color: white !important;
+  stroke: white !important;
+  width: 18px;
+  height: 18px;
+}
+.addBtn {
+  background-color: #DA7D19;
+  color: white; 
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  height: fit-content; 
+}
+
+.addBtn span {
+  background-color: white; 
+  color: #DA7D19; 
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.departmentSection {
+  background-color: transparent; 
+  box-shadow: none;
+  width: 90%;
+  margin: 0 auto 24px;
+}
+
+.departmentName {
+  font-family: "McLaren", sans-serif;
+  color: #d4851c;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.instructorGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+.emptyText {
+  text-align: center;
+  color: #737373;
+  margin-top: 50px;
+}

@@ -10,8 +10,8 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import Home from "./pages/Home/Home"; 
 import Instructors from "./pages/Instructors/Instructors";
 import InstructorDetails from "./components/instructors/InstructorDetails/InstructorDetails";
-
 import Profile from "./pages/profile/profile"; 
+import AdminInstructors from "./pages/Admin/instructors/AdminInstructors";
 
 import { useAuth } from "./context/AuthContext";
 
@@ -30,7 +30,6 @@ const router = createBrowserRouter([
   { path: "instructors", element: <Instructors/>  },
   { path: "instructors/:id", element: <InstructorDetails/>  },
 
-
   // Protected main app routes (only visible after login)
   {
     path: "/app",
@@ -40,6 +39,8 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      
+      { path: "admin/instructors", element: <AdminInstructors /> },
       { index: true, element: <Projects /> }, 
       { path: "projects", element: <Projects /> },
       { path: "projects/:id", element: <ProjectDetails /> },
