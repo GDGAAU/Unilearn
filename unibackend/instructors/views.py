@@ -51,9 +51,12 @@ class InstructorInsightCreateView(generics.CreateAPIView):
 
     def post(self, request, instructor_id):
         instructor = get_object_or_404(Instructor, id=instructor_id)
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(
+            data=request.data,
+            context={"instructor": instructor},
+        )
         if serializer.is_valid():
-            serializer.save(instructor=instructor, status="pending")
+            serializer.save()
             return Response(
                 {"success": True, "message": "Insight submitted and pending approval"},
                 status=status.HTTP_201_CREATED,
