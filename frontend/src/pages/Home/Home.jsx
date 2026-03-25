@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
-import Navbar from "../../components/common/Navbar/Navbar"; 
+// import Navbar from "../../components/common/Navbar/Navbar"; 
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className={styles.wrapper}>
       {/* Include the navbar */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className={styles.card}>
         <h1 className={styles.title}>UNILEARN</h1>
