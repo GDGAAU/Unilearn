@@ -1,46 +1,52 @@
 .card {
-  background: #ffffff;
-  border: 1px solid #FFE0B2;
-  border-radius: 4px;
-  overflow: hidden;
-  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  border: 1px solid #f2e3d3;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.imageHeader {
-  background-color: #34495E;
-  height: 140px;
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
-.illustration { font-size: 3rem; }
-
-.cardBody { padding: 15px; }
-
-.infoLine {
-  font-size: 0.75rem;
-  margin: 3px 0;
-  color: var(--primary-text);
+.icon {
+  font-size: 1.5rem;
 }
 
-.orangeLabel {
-  color: var(--dark-orange);
-  font-weight: 700;
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #E67E22;
 }
 
-.footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
+.body p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #555;
 }
 
-.downloadLink {
-  background: none;
+.downloadBtn {
+  margin-top: 0.8rem;
+  padding: 6px 12px;
+  background: #E67E22;
+  color: white;
   border: none;
-  color: var(--dark-orange);
-  font-weight: 700;
-  font-size: 0.75rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.downloadBtn:hover {
+  opacity: 0.9;
 }

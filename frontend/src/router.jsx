@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout/Layout"; 
 import Projects from "./pages/Projects/Projects";
 import ProjectDetails from "./components/projects/ProjectDetails/ProjectDetails";
@@ -10,14 +10,21 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import Home from "./pages/Home/Home"; 
 import Instructors from "./pages/Instructors/Instructors";
 import InstructorDetails from "./components/instructors/InstructorDetails/InstructorDetails";
-import Profile from "./pages/profile/profile"; 
+import Profile from "./pages/profile/profile";
+import AdminProfile from "./pages/Admin/AdminProfile/AdminProfile";
+import AdminProfileEdit from "./pages/Admin/AdminProfile/AdminProfileEdit"; 
+
+/* Admin Pages */
+import AdminDashboard from "./pages/Admin/AdminDashboard/Admin_Dahboard";
+import AdminInsights from "./pages/Admin/AdminInsights/AdminInsights";
 import AdminInstructors from "./pages/Admin/instructors/AdminInstructors";
+import AdminCourses from "./pages/Admin/AdminCourses/AdminCourses";
+import AddCourse from "./pages/Admin/AdminCourses/AddCourse";
+import AdminAccounts from "./pages/Admin/AdminAccounts/AdminAccounts";
 
-import { useAuth } from "./context/AuthContext";
-
+/* DEV MODE (no auth) */
 function PrivateRoute({ children }) {
-  const { user } = useAuth();
-  return user ? children : <Navigate to="/login" replace />;
+  return children;
 }
 
 const router = createBrowserRouter([
@@ -26,11 +33,9 @@ const router = createBrowserRouter([
   { path: "/register", element: <Signup /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
 
+  { path: "instructors", element: <Instructors /> },
+  { path: "instructors/:id", element: <InstructorDetails /> },
 
-  { path: "instructors", element: <Instructors/>  },
-  { path: "instructors/:id", element: <InstructorDetails/>  },
-
-  // Protected main app routes (only visible after login)
   {
     path: "/app",
     element: (
@@ -39,18 +44,29 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      
-      { path: "admin/instructors", element: <AdminInstructors /> },
-      { index: true, element: <Projects /> }, 
+      // Regular routes
+      { index: true, element: <Projects /> },
       { path: "projects", element: <Projects /> },
       { path: "projects/:id", element: <ProjectDetails /> },
       { path: "courses", element: <Courses /> },
       { path: "courses/:id", element: <CourseDetails /> },
-      { path: "profile", element: <div style={{ padding: "20px" }}>Profile Page Coming Soon...</div> },
       { path: "instructors", element: <div style={{ padding: "20px" }}>Instructors Page Coming Soon...</div> },
-      { path: "profile", element: <Profile /> }, 
+      { path: "profile", element: <Profile /> },
+
+      // Admin routes
+      { path: "admin", element: <AdminDashboard /> },
+      { path: "admin/insights", element: <AdminInsights /> },
+      { path: "admin/projects", element: <Projects /> },
+      { path: "admin/instructors", element: <AdminInstructors /> },
+      {path: "admin/courses", element: <AdminCourses/>},
+      {path: "admin/courses/add", element: <AddCourse/>},
+      {path : "admin/accounts", element: <AdminAccounts/>},
+      {path : "admin/profile", element: <AdminProfile/>},
+      {path : "admin/profile/edit", element: <AdminProfileEdit/>},
     ],
   },
+
+  { path: "*", element: <div>Page Not Found</div> },
 ]);
 
 export default router;

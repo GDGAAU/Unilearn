@@ -1,4 +1,3 @@
-
 .pageWrapper {
   background-color: var(--page-bg);
   min-height: 100vh;
@@ -111,6 +110,21 @@
   margin-bottom: 5px;
 }
 
+.techStack {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.techBadge {
+  background-color: var(--dark-orange);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
 .emptyProjects {
   text-align: center;
   color: #888;
@@ -183,4 +197,14 @@
   padding: 100px;
   color: var(--dark-orange);
   font-weight: 500;
+}
+
+.bio {
+  color: var(--primary-text);
+  margin-top: 8px;
+}
+
+.emptyText {
+  color: #888;
+  font-style: italic;
 }

@@ -1,8 +1,8 @@
 import { useState } from "react"; 
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import styles from "./Navbar.module.css";
+import styles from "./Admin_navbar.module.css";
 
-const Navbar = () => {
+const AdminNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -15,75 +15,85 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <Link to="/app" onClick={closeMenu}>UNILEARN</Link>
+          <Link to="/app/admin" onClick={closeMenu}>UNILEARN</Link>
         </div>
 
-        {/* Hamburger Menu for Mobile */}
         <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
           <span className={isOpen ? styles.barOpen : ""}></span>
           <span className={isOpen ? styles.barOpen : ""}></span>
           <span className={isOpen ? styles.barOpen : ""}></span>
         </div>
 
-        {/* Navigation Links */}
         <ul className={`${styles.navLinks} ${isOpen ? styles.show : ""}`}>
-          <li>
+
+ <li>
             <Link
-              to="/app/courses"
+              to="/app/admin/courses"
               onClick={closeMenu}
-              className={location.pathname === "/app/courses" ? styles.active : ""}
+              className={isActive("/app/admin/Courses") ? styles.active : ""}
             >
               Courses
             </Link>
           </li>
-          <li>
+ <li>
             <Link
-              to="/app/instructors"
+              to="/app/admin/Instructors"
               onClick={closeMenu}
-              className={location.pathname === "/app/instructors" ? styles.active : ""}
+              className={isActive("/app/admin/Instructors") ? styles.active : ""}
             >
               Instructors
             </Link>
           </li>
+
+
           <li>
             <Link
-              to="/app/projects"
+              to="/app/admin/insights"
               onClick={closeMenu}
-              className={(location.pathname === "/app/projects" || location.pathname === "/app") ? styles.active : ""}
+              className={isActive("/app/admin/insights") ? styles.active : ""}
+            >
+              Insights
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/app/admin/projects"
+              onClick={closeMenu}
+              className={isActive("/app/admin/projects") ? styles.active : ""}
             >
               Projects
             </Link>
           </li>
           <li>
             <Link
-              to="/app/profile"
+              to="/app/admin/accounts"
               onClick={closeMenu}
-              className={location.pathname === "/app/profile" ? styles.active : ""}
+              className={isActive("/app/admin/accounts") ? styles.active : ""}
+            >
+              Accounts
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/app/admin/profile"
+              onClick={closeMenu}
+              className={isActive("/app/admin/profile") ? styles.active : ""}
             >
               Profile
             </Link>
           </li>
 
-           <li>
-            <Link
-              to="/app/admin"
-              onClick={closeMenu}
-              className={location.pathname === "/app/admin" ? styles.active : ""}
-            >
-              Admin
-            </Link>
-          </li>
-          
           <li className={styles.mobileLogout}>
             <button className={styles.logoutBtn} onClick={handleLogout}>Log Out</button>
           </li>
         </ul>
 
-        {/* Desktop Actions */}
         <div className={styles.actions}>
           <button className={styles.logoutBtn} onClick={handleLogout}>Log Out</button>
         </div>
@@ -92,4 +102,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;

@@ -1,0 +1,124 @@
+.page {
+  min-height: 100vh;
+  background: #fff8f1;
+  padding: 2rem;
+  font-family: 'McLaren', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.searchInput {
+  flex: 1;
+  max-width: 400px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #e5d7c8;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #e67e22;
+}
+
+.addBtn {
+  background: #e67e22;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.addBtn:hover {
+  opacity: 0.9;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #f2e3d3;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card h2 {
+  color: #e67e22;
+  margin: 0;
+}
+
+.tags {
+  display: flex;
+  gap: 5px;
+}
+
+.tag {
+  background: #fff2e3;
+  color: #e67e22;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.viewBtn,
+.editBtn,
+.deleteBtn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.viewBtn {
+  background: #e67e22;
+  color: white;
+}
+
+.editBtn {
+  background: #e67e22;
+  opacity: 0.8;
+  color: white;
+}
+
+.deleteBtn {
+  background: #e67e22;
+  opacity: 0.6;
+  color: white;
+}
+
+.viewBtn:hover,
+.editBtn:hover,
+.deleteBtn:hover {
+  opacity: 1;
+}
+
+.empty {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  grid-column: 1/-1;
+}

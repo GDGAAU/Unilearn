@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import AdminInstructorCard from "../../../components/Admininstructors/Adinstructorscard/AdminInstructorCard";
 import styles from './AdminInstructors.module.css';
-import Navbar from "../../../components/common/Navbar/Navbar";
+// import Navbar from "../../../components/common/Navbar/Navbar";
 import Footer from "../../../components/common/Footer/Footer";
 import AddInstructor from "../../../components/Admininstructors/Addinstructors/AddInstructor";
 import EditInstructor from "../../../components/Admininstructors/Editinstructor/EditInstructor";
@@ -115,7 +115,7 @@ const AdminInstructors = () => {
   if (loading) return <div className={styles.loader}>Loading...</div>;
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className={styles.page}>
         <div className={styles.content}>
           

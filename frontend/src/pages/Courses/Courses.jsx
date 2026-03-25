@@ -14,6 +14,19 @@ const Courses = () => {
     ]);
   }, []);
 
+  // ✅ ADD THIS FUNCTION ONLY
+  const handleAddCourse = () => {
+    const newCourse = {
+      id: resources.length + 1,
+      title: 'New Course',
+      instructor_name: 'New Instructor',
+      course_code: '00',
+      file_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
+    };
+
+    setResources((prev) => [...prev, newCourse]);
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.searchBarContainer}>
@@ -22,6 +35,7 @@ const Courses = () => {
           <span className={styles.searchIcon}>🔍</span>
         </div>
       </div>
+
 
       <div className={styles.contentContainer}>
         <h1 className={styles.title}>Software Engineering Department</h1>

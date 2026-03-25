@@ -1,0 +1,87 @@
+.page {
+  min-height: 100vh;
+  background: #fff8f1;
+  font-family: 'McLaren', sans-serif;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid #f2e3d3;
+}
+
+.status {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #e67e22;
+  padding: 2rem;
+}
+
+.profileHeader {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.editForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.editForm label {
+  font-weight: 600;
+  color: #e67e22;
+}
+
+.editForm input,
+.editForm textarea {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #f2e3d3;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.editForm textarea {
+  min-height: 80px;
+}
+
+.saveBtn,
+.cancelBtn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.saveBtn {
+  background: #e67e22;
+  color: white;
+}
+
+.saveBtn:hover {
+  opacity: 0.9;
+}
+
+.cancelBtn {
+  background: #ccc;
+  color: #333;
+}
+
+.cancelBtn:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,161 @@
+.page {
+  min-height: 100vh;
+  background: #FFF8F1;
+  font-family: 'McLaren', sans-serif;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.backBtn {
+  background: transparent;
+  border: none;
+  color: #E67E22;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+/* Each student container */
+.studentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Profile Card */
+.studentProfileCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #f2e3d3;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.info strong {
+  font-size: 1.2rem;
+  color: #E67E22;
+}
+
+.info span {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.projectsBtn,
+.flagBtn,
+.unflagBtn,
+.deleteBtn,
+.addBtn {
+  background: #E67E22;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.deleteBtn {
+  background: #c25f09;
+}
+
+.projectsBtn:hover,
+.flagBtn:hover,
+.unflagBtn:hover,
+.deleteBtn:hover,
+.addBtn:hover {
+  opacity: 0.9;
+}
+
+.seeInsights {
+  font-size: 13px;
+  color: #E67E22;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #FFF2E3;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #E67E22;
+}
+
+.feedbackList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feedbackCard {
+  background: #FFF2E3;
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.feedbackCard p {
+  flex: 1 1 70%;
+  font-size: 13px;
+  margin: 0;
+  color: #555;
+}
+
+.avatarSmall {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+/* Add Feedback button */
+.addBtn {
+  align-self: flex-start;
+  font-size: 0.85rem;
+}
